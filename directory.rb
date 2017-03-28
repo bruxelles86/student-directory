@@ -1,17 +1,17 @@
 # let's put all the students into an array
 
 students = [
-    {name: "Dr. Hannibal Lecter", cohort: :november},
-    {name:"Darth Vader", cohort: :november},
-    {name: "Nurse Ratched", cohort: :november},
-    {name: "Michael Corleone", cohort: :november},
-    {name: "Alex DeLarge", cohort: :november},
-    {name: "The Wicked Witch of the West", cohort: :november},
-    {name: "Terminator", cohort: :november},
-    {name: "Freddy Krueger", cohort: :november},
-    {name: "The Joker", cohort: :november},
-    {name: "Joffrey Baratheon", cohort: :november},
-    {name: "Norman Bates", cohort: :november}
+    {name: "Dr. Hannibal Lecter", cohort: :november, age: 50, nationality: :US},
+    {name: "Darth Vader", cohort: :november, age: 62, nationality: :US},
+    {name: "Nurse Ratched", cohort: :november, age: 45, nationality: :US},
+    {name: "Michael Corleone", cohort: :november, age: 70, nationality: :Italian},
+    {name: "Alex DeLarge", cohort: :november, age: 60, nationality: :UK},
+    {name: "The Wicked Witch of the West", cohort: :november, age: 60, nationality: :US},
+    {name: "Terminator", cohort: :november, age: 35, nationality: :US},
+    {name: "Freddy Krueger", cohort: :november, age: 45, nationality: :US},
+    {name: "The Joker", cohort: :november, age: 30, nationality: :US},
+    {name: "Joffrey Baratheon", cohort: :november, age: 15, nationality: :UK},
+    {name: "Norman Bates", cohort: :november, age: 32, nationality: :US}
     ]
 
 def print_header
@@ -23,6 +23,50 @@ def print(students)
     students.each do |student|
         puts "#{student[:name]} (#{student[:cohort]} cohort)"
     end
+end
+
+def print_nationality_age(students)
+    students.each do |student|
+        puts "#{student[:age]} #{student[:nationality]}"
+    end
+end
+
+def print_with_loop(students)
+    counter = 0
+    while counter != students.count 
+        puts students[counter][:name]
+        counter += 1
+    end
+end
+
+def print_with_index(students)
+   students.each.with_index(1) do |student, index|
+        puts "#{index}. #{student[:name]} (#{student[:cohort]} cohort)"
+   end
+end
+
+def print_by_first_letter(students)
+   puts "Please type a letter of the alphabet to show the names of all students starting with that letter"
+   letter = $stdin.gets.chomp.upcase
+   students.each do |student|
+    student_first_letter = student[:name][0]
+        if student_first_letter == letter
+            puts student[:name]
+        else
+            next
+        end
+    end
+end
+
+def print_shorter_names(students)
+    puts "The following students have names shorter than 12 characters"
+    students.each do |student|
+    if student[:name].length < 12
+        puts student[:name]
+    else
+        next
+    end
+end
 end
 
 def print_footer(students)
@@ -49,7 +93,12 @@ def input_students
     students 
 end
 
-students = input_students
+# students = input_students
 print_header
-print(students)
+print_with_loop(students)
+print_nationality_age(students)
+# print_shorter_names(students)
+# print_by_first_letter(students)
+# print_with_index(students)
+# print(students)
 print_footer(students)

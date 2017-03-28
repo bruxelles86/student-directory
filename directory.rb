@@ -3,12 +3,12 @@
 students = [
     {name: "Dr. Hannibal Lecter", cohort: :november, age: 50, nationality: :US},
     {name: "Darth Vader", cohort: :november, age: 62, nationality: :US},
-    {name: "Nurse Ratched", cohort: :november, age: 45, nationality: :US},
-    {name: "Michael Corleone", cohort: :november, age: 70, nationality: :Italian},
-    {name: "Alex DeLarge", cohort: :november, age: 60, nationality: :UK},
+    {name: "Nurse Ratched", cohort: :april, age: 45, nationality: :US},
+    {name: "Michael Corleone", cohort: :march, age: 70, nationality: :Italian},
+    {name: "Alex DeLarge", cohort: :march, age: 60, nationality: :UK},
     {name: "The Wicked Witch of the West", cohort: :november, age: 60, nationality: :US},
     {name: "Terminator", cohort: :november, age: 35, nationality: :US},
-    {name: "Freddy Krueger", cohort: :november, age: 45, nationality: :US},
+    {name: "Freddy Krueger", cohort: :october, age: 45, nationality: :US},
     {name: "The Joker", cohort: :november, age: 30, nationality: :US},
     {name: "Joffrey Baratheon", cohort: :november, age: 15, nationality: :UK},
     {name: "Norman Bates", cohort: :november, age: 32, nationality: :US}
@@ -83,9 +83,9 @@ def input_students
     while ends == false do
         
         puts "Please enter the next student's name."
-        name = gets.chomp
+        name = gets.rstrip
         puts "And now please enter the cohort of that student."
-        cohort = gets.chomp.downcase
+        cohort = gets.rstrip.downcase
         if name.empty?
             name = "NO NAME RECORDED"
         end
@@ -97,7 +97,11 @@ def input_students
         
         # add the student hash to the array
         students << {name: name, cohort: cohort.to_sym}
-        puts "Now we have #{students.count} students".center(150)
+        if students.count == 1
+            puts "Now we have #{students.count} student".center(150)
+        else
+            puts "Now we have #{students.count} students".center(150)
+        end
     
         puts "Type 'end' if you've finished, or any other input to continue and add more students."
         ends = gets.chomp
@@ -113,9 +117,22 @@ def input_students
     students 
 end
 
+# cohort method not working yet 
+def print_by_cohort(students, cohort)
+    students_array = students
+    students_array.each do |student|
+        if student[cohort.to_sym] == student[:cohort]
+            puts "#{student[:name]}, #{student[:cohort]}"
+        else
+            next
+        end
+    end
+end
+
 students = input_students
 print_header
 print_with_loop(students)
+# print_by_cohort(students, "march")
 # print_nationality_age(students)
 # print_shorter_names(students)
 # print_by_first_letter(students)

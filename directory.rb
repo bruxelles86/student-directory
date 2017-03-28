@@ -75,25 +75,45 @@ end
 #nothing happens until we call the methods
 
 def input_students
-    puts "Please enter the names of the students".center(150)
-    puts "To finish, just hit return twice".center(150)
-    # create an empty array
+    # create an empty array     
     students = []
-    # get the first name
-    name = gets.chomp
+    ends = false
+
     # while the name is not empty, repeat this code
-    while !name.empty? do
-        # add the student hash to the array
-        students << {name: name, cohort: :november}
-        puts "Now we have #{students.count} students".center(150)
-        # get another name from the user
+    while ends == false do
+        
+        puts "Please enter the next student's name."
         name = gets.chomp
+        puts "And now please enter the cohort of that student."
+        cohort = gets.chomp.downcase
+        if name.empty?
+            name = "NO NAME RECORDED"
+        end
+        
+        if cohort.empty?
+            cohort = "NO COHORT RECORDED"
+        end
+        
+        
+        # add the student hash to the array
+        students << {name: name, cohort: cohort.to_sym}
+        puts "Now we have #{students.count} students".center(150)
+    
+        puts "Type 'end' if you've finished, or any other input to continue and add more students."
+        ends = gets.chomp
+        if ends.downcase == "end"
+            ends = true
+        else 
+            ends = false
+        end
+        
     end
+    puts students
 # return the array of students 
     students 
 end
 
-# students = input_students
+students = input_students
 print_header
 print_with_loop(students)
 # print_nationality_age(students)

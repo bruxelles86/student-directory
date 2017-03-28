@@ -15,43 +15,43 @@ students = [
     ]
 
 def print_header
-puts "The students of Villains Academy"
-puts "-------------"
+puts "The students of Villains Academy".center(150)
+puts "-------------".center(150)
 end
 
 def print(students)
     students.each do |student|
-        puts "#{student[:name]} (#{student[:cohort]} cohort)"
+        puts "#{student[:name]} (#{student[:cohort]} cohort)".center(150)
     end
 end
 
 def print_nationality_age(students)
     students.each do |student|
-        puts "#{student[:age]} #{student[:nationality]}"
+        puts "#{student[:age]} #{student[:nationality]}".center(150)
     end
 end
 
 def print_with_loop(students)
     counter = 0
     while counter != students.count 
-        puts students[counter][:name]
+        puts students[counter][:name].center(150)
         counter += 1
     end
 end
 
 def print_with_index(students)
    students.each.with_index(1) do |student, index|
-        puts "#{index}. #{student[:name]} (#{student[:cohort]} cohort)"
+        puts "#{index}. #{student[:name]} (#{student[:cohort]} cohort)".center(150)
    end
 end
 
 def print_by_first_letter(students)
-   puts "Please type a letter of the alphabet to show the names of all students starting with that letter"
+   puts "Please type a letter of the alphabet to show the names of all students starting with that letter".center(150)
    letter = $stdin.gets.chomp.upcase
    students.each do |student|
     student_first_letter = student[:name][0]
         if student_first_letter == letter
-            puts student[:name]
+            puts student[:name].center(150)
         else
             next
         end
@@ -59,10 +59,10 @@ def print_by_first_letter(students)
 end
 
 def print_shorter_names(students)
-    puts "The following students have names shorter than 12 characters"
+    puts "The following students have names shorter than 12 characters".center(150)
     students.each do |student|
     if student[:name].length < 12
-        puts student[:name]
+        puts student[:name].center(150)
     else
         next
     end
@@ -70,13 +70,13 @@ end
 end
 
 def print_footer(students)
-    puts "Overall we have #{students.count} great students"
+    puts "Overall we have #{students.count} great students".center(150)
 end
 #nothing happens until we call the methods
 
 def input_students
-    puts "Please enter the names of the students"
-    puts "To finish, just hit return twice"
+    puts "Please enter the names of the students".center(150)
+    puts "To finish, just hit return twice".center(150)
     # create an empty array
     students = []
     # get the first name
@@ -85,7 +85,7 @@ def input_students
     while !name.empty? do
         # add the student hash to the array
         students << {name: name, cohort: :november}
-        puts "Now we have #{students.count} students"
+        puts "Now we have #{students.count} students".center(150)
         # get another name from the user
         name = gets.chomp
     end
@@ -96,7 +96,7 @@ end
 # students = input_students
 print_header
 print_with_loop(students)
-print_nationality_age(students)
+# print_nationality_age(students)
 # print_shorter_names(students)
 # print_by_first_letter(students)
 # print_with_index(students)

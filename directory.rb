@@ -17,7 +17,7 @@ puts "The students of Villains Academy".center(150)
 puts "-------------".center(150)
 end
 
-def printing
+def print_students_list()
     student_array = @students
     student_array.each do |student|
         if student[:name] != "NO NAME RECORDED"
@@ -127,25 +127,8 @@ end
 
 def interactive_menu
     loop do
-       # 1. print the menu and ask the user what to do
-       puts "1. Input the students"
-       puts "2. Show the students"
-       puts "9. Exit" # 9 because we'll be adding more items
-       # 2. read the input and save it into a variable
-       selection = gets.chomp
-       # 3. do what the user has asked
-       case selection
-        when "1"
-            input_students
-        when "2"
-            print_header
-            printing
-            print_footer
-        when "9"
-            exit # this will causes the program to terminate
-        else 
-            puts "I don't know what you meant, try again"
-       end
+       print_menu
+       process(gets.chomp)
     end
 end
 
@@ -157,8 +140,21 @@ end
 
 def show_students
     print_header
-    print
+    print_students_list
     print_footer
+end
+
+def process(selection)
+    case selection
+        when "1"
+            input_students
+        when "2"
+            show_students
+        when "9"
+            exit
+        else
+            puts "I don't know what you mean, try again"
+    end
 end
 
 interactive_menu
@@ -170,5 +166,5 @@ interactive_menu
 # print_shorter_names
 # print_by_first_letter
 # print_with_index
-# printing
+# print_students_list
 # print_footer

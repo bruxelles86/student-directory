@@ -21,7 +21,11 @@ end
 
 def print(students)
     students.each do |student|
+        if student[:name] != "NO NAME RECORDED"
         puts "#{student[:name]} (#{student[:cohort]} cohort)".center(150)
+        else
+            next
+        end
     end
 end
 
@@ -112,7 +116,6 @@ def input_students
         end
         
     end
-    puts students
 # return the array of students 
     students 
 end

@@ -117,25 +117,24 @@ def input_students
     students 
 end
 
-# cohort method not working yet 
 def print_by_cohort(students, cohort)
     students_array = students
     students_array.each do |student|
-        if student[cohort.to_sym] == student[:cohort]
+        if cohort.to_sym == student[:cohort]
             puts "#{student[:name]}, #{student[:cohort]}"
         else
-            next
+           next
         end
     end
 end
 
 students = input_students
 print_header
-print_with_loop(students)
+# print_with_loop(students)
 # print_by_cohort(students, "march")
 # print_nationality_age(students)
 # print_shorter_names(students)
 # print_by_first_letter(students)
 # print_with_index(students)
-# print(students)
+print(students)
 print_footer(students)

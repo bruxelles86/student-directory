@@ -12,11 +12,6 @@
     {name: "Norman Bates", cohort: :november, age: 32, nationality: :US}
     ]
 
-def print_header
-puts "The students of Villains Academy".center(150)
-puts "-------------".center(150)
-end
-
 def printing
     student_array = @students
     student_array.each do |student|
@@ -27,55 +22,6 @@ def printing
         end
     end
 end
-
-def print_nationality_age
-    @students.each do |student|
-        puts "#{student[:age]} #{student[:nationality]}".center(150)
-    end
-end
-
-def print_with_loop
-    counter = 0
-    while counter != @students.count 
-        puts @students[counter][:name].center(150)
-        counter += 1
-    end
-end
-
-def print_with_index
-   @students.each.with_index(1) do |student, index|
-        puts "#{index}. #{student[:name]} (#{student[:cohort]} cohort)".center(150)
-   end
-end
-
-def print_by_first_letter
-   puts "Please type a letter of the alphabet to show the names of all students starting with that letter".center(150)
-   letter = $stdin.gets.chomp.upcase
-   @students.each do |student|
-    student_first_letter = student[:name][0]
-        if student_first_letter == letter
-            puts student[:name].center(150)
-        else
-            next
-        end
-    end
-end
-
-def print_shorter_names
-    puts "The following students have names shorter than 12 characters".center(150)
-    @students.each do |student|
-    if student[:name].length < 12
-        puts student[:name].center(150)
-    else
-        next
-    end
-end
-end
-
-def print_footer
-    puts "Overall we have #{@students.count} great students".center(150)
-end
-#nothing happens until we call the methods
 
 def input_students
     # create an empty array     
@@ -115,16 +61,6 @@ def input_students
     end
 end
 
-def print_by_cohort(cohort)
-    @students.each do |student|
-        if cohort.to_sym == student[:cohort]
-            puts "#{student[:name]}, #{student[:cohort]}"
-        else
-           next
-        end
-    end
-end
-
 def interactive_menu
     loop do
        # 1. print the menu and ask the user what to do
@@ -138,9 +74,7 @@ def interactive_menu
         when "1"
             input_students
         when "2"
-            print_header
             printing
-            print_footer
         when "9"
             exit # this will causes the program to terminate
         else 
@@ -149,26 +83,4 @@ def interactive_menu
     end
 end
 
-def print_menu
-    puts "1. Input the students"
-    puts "2. Show the students"
-    puts "9. Exit"
-end
-
-def show_students
-    print_header
-    print
-    print_footer
-end
-
 interactive_menu
-# students = input_students
-# print_header
-# print_with_loop
-# print_by_cohort("march")
-# print_nationality_age
-# print_shorter_names
-# print_by_first_letter
-# print_with_index
-# printing
-# print_footer

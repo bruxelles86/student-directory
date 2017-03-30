@@ -182,20 +182,29 @@ end
 def load_students
     puts "Please enter the name of the file you would like to load"
     filename = STDIN.gets.chomp
+    if File.exists?(filename)
     file = File.open(filename, "r")
     file.readlines.each do |line|
         name, cohort = line.chomp.split(',')
         add_students(name, cohort)
+        file.close
     end
-    file.close
-    puts "File loaded"
+        puts "\nFile loaded\n"
+    else
+        puts "Sorry, #{filename} doesn't exist."
+    end
 end
 
 def try_load_students
     filename = ARGV.first # first argument from the command line
     filename = "students.csv" if filename.nil? # get out of the method if it isn't given
     if File.exists?(filename) # if it exists
-        load_students(filename)
+        file = File.open(filename, "r")
+        file.readlines.each do |line|
+        name, cohort = line.chomp.split(',')
+        add_students(name, cohort)
+        end
+        file.close
         puts "Loaded #{@students.count} from #{filename}"
     else # if it doesn't exist
         puts "Sorry, #{filename} doesn't exist."

@@ -137,12 +137,14 @@ def process(selection)
         when "1"
             input_students
         when "2"
+            puts "Displaying students..."
             show_students
         when "3"
             save_students  
         when "4"
             load_students
         when "9"
+            Puts "Exiting the program"
             exit
         else
             puts "I don't know what you mean, try again"
@@ -158,16 +160,35 @@ def save_students
        csv_line = student_data.join(",")
        file.puts csv_line
     end
+    new_file = []
+    file.close
+    file = File.open("students.csv", "r+")
+    file.readlines.each do |line|
+        name, cohort = line.chomp.split(',')
+        new_file << {name: name, cohort: cohort.to_sym}
+        end
+        counter = 0
+        file_saved = false
+    new_file.each do |line|
+        if line == @students[counter] 
+            counter += 1
+            file_saved = true#
+        end
+    end
+    puts "\nFile saved successfully\n\n" if file_saved == true
     file.close
 end
 
-def load_students(filename = "students.csv")
+def load_students
+    puts "Please enter the name of the file you would like to load"
+    filename = STDIN.gets.chomp
     file = File.open(filename, "r")
     file.readlines.each do |line|
         name, cohort = line.chomp.split(',')
         add_students(name, cohort)
     end
     file.close
+    puts "File loaded"
 end
 
 def try_load_students

@@ -66,42 +66,40 @@ end
 #nothing happens until we call the methods
 
 def input_students
-    # create an empty array     
-    ends = false
-
-    # while the name is not empty, repeat this code
-    while ends == false do
-        
-        puts "Please enter the next student's name."
-        name = STDIN.gets.chomp
-        puts "And now please enter the cohort of that student."
-        cohort = STDIN.gets.chomp.downcase
-        if name.empty?
-            name = "NO NAME RECORDED"
-        end
-        
-        if cohort.empty?
-            cohort = "NO COHORT RECORDED"
-        end
-        
-        
+    seek_name
+    name = STDIN.gets.chomp
+    return if name.empty?
+    seek_cohort    
+    cohort = STDIN.gets.chomp.downcase
+    
+    while true
         # add the student hash to the array
         add_students(name, cohort)
-        if @students.count == 1
-            puts "Now we have #{@students.count} student".center(150)
-        else
-            puts "Now we have #{@students.count} students".center(150)
-        end
-    
-        puts "Type 'end' if you've finished, or any other input to continue and add more students."
-        ends = STDIN.gets.chomp
-        if ends.downcase == "end"
-            ends = true
-        else 
-            ends = false
-        end
+        student_count
+        seek_name
+        name = STDIN.gets.chomp
+        break if name.empty?
+        seek_cohort
+        cohort = STDIN.gets.chomp.downcase
     end
 end
+
+def seek_name
+    puts "Please enter the next student's name. Press enter to finish."
+end
+
+def seek_cohort
+    puts "And now please enter the cohort of that student."
+end
+
+def student_count
+    if @students.count == 1
+        puts "Now we have #{@students.count} student".center(150)
+    else
+        puts "Now we have #{@students.count} students".center(150)
+    end
+end
+
 
 def print_by_cohort(cohort)
     @students.each do |student|

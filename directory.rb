@@ -144,7 +144,7 @@ def process(selection)
         when "4"
             load_students
         when "9"
-            Puts "Exiting the program"
+            puts "Exiting the program"
             exit
         else
             puts "I don't know what you mean, try again"
@@ -153,42 +153,42 @@ end
 
 def save_students
    # open the file for writing
-   file = File.open("students.csv", "w")
+   File::open("students.csv", "w") do |file|
    # iterate over the array of students
    @students.each do |student|
        student_data = [student[:name], student[:cohort]]
        csv_line = student_data.join(",")
        file.puts csv_line
     end
+    end
     new_file = []
-    file.close
-    file = File.open("students.csv", "r+")
+    File::open("students.csv", "r+") do |file|
     file.readlines.each do |line|
         name, cohort = line.chomp.split(',')
         new_file << {name: name, cohort: cohort.to_sym}
         end
         counter = 0
         file_saved = false
-    new_file.each do |line|
+        new_file.each do |line|
         if line == @students[counter] 
             counter += 1
             file_saved = true#
         end
     end
     puts "\nFile saved successfully\n\n" if file_saved == true
-    file.close
+    end
 end
 
 def load_students
     puts "Please enter the name of the file you would like to load"
     filename = STDIN.gets.chomp
     if File.exists?(filename)
-    file = File.open(filename, "r")
-    file.readlines.each do |line|
+        File::open(filename, "r") do |file|
+        file.readlines.each do |line|
         name, cohort = line.chomp.split(',')
         add_students(name, cohort)
-        file.close
-    end
+        end
+        end
         puts "\nFile loaded\n"
     else
         puts "Sorry, #{filename} doesn't exist."
@@ -199,12 +199,12 @@ def try_load_students
     filename = ARGV.first # first argument from the command line
     filename = "students.csv" if filename.nil? # get out of the method if it isn't given
     if File.exists?(filename) # if it exists
-        file = File.open(filename, "r")
+        File::open(filename, "r") do |file|
         file.readlines.each do |line|
         name, cohort = line.chomp.split(',')
         add_students(name, cohort)
         end
-        file.close
+        end
         puts "Loaded #{@students.count} from #{filename}"
     else # if it doesn't exist
         puts "Sorry, #{filename} doesn't exist."

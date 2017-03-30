@@ -154,14 +154,12 @@ end
 
 def save_students
    # open the file for writing
-   File::open("students.csv", "w") do |file|
-   # iterate over the array of students
-   @students.each do |student|
-       student_data = [student[:name], student[:cohort]]
-       csv_line = student_data.join(",")
-       file.puts csv_line
-    end
-    end
+   CSV.open("students.csv", "w") do |file|
+   @students.each do |hash|
+   file << hash.values
+   end
+   end
+    
     new_file = []
     File::open("students.csv", "r+") do |file|
     file.readlines.each do |line|

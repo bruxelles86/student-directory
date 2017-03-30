@@ -73,9 +73,9 @@ def input_students
     while ends == false do
         
         puts "Please enter the next student's name."
-        name = gets.chomp
+        name = STDIN.gets.chomp
         puts "And now please enter the cohort of that student."
-        cohort = gets.chomp.downcase
+        cohort = STDIN.gets.chomp.downcase
         if name.empty?
             name = "NO NAME RECORDED"
         end
@@ -94,7 +94,7 @@ def input_students
         end
     
         puts "Type 'end' if you've finished, or any other input to continue and add more students."
-        ends = gets.chomp
+        ends = STDIN.gets.chomp
         if ends.downcase == "end"
             ends = true
         else 
@@ -116,7 +116,7 @@ end
 def interactive_menu
     loop do
        print_menu
-       process(gets.chomp)
+       process(STDIN.gets.chomp)
     end
 end
 
@@ -163,8 +163,8 @@ def save_students
     file.close
 end
 
-def load_students
-    file = File.open("students.csv", "r")
+def load_students(filename = "students.csv")
+    file = File.open(filename, "r")
     file.readlines.each do |line|
         name, cohort = line.chomp.split(',')
         @students << {name: name, cohort: cohort.to_sym}
@@ -172,6 +172,19 @@ def load_students
     file.close
 end
 
+def try_load_students
+    filename = ARGV.first # first argument from the command line
+    return if filename.nil? # get out of the method if it isn't given
+    if File.exists?(filename) # if it exists
+        load_students(filename)
+        puts "Loaded #{@students.count} from #{filename}"
+    else # if it doesn't exist
+        puts "Sorry, #{filename} doesn't exist."
+        exit # quit the program
+    end
+end
+
+try_load_students
 interactive_menu
 # students = input_students
 # print_header
